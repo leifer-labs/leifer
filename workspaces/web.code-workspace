@@ -1,0 +1,16 @@
+{
+	"folders": [
+    {
+      "name": "leifer-webbe",
+      "path": "../leifer-webbe"
+    },
+    {
+      "name": "leifer-webfe",
+      "path": "../leifer-webfe"
+    },
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {}
+}

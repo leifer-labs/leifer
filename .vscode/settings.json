@@ -1,0 +1,9 @@
+{
+  "files.exclude": {
+    "**/leifer-*": true
+  },
+  "search.exclude": {
+    "**/leifer-*": true
+  },
+  "explorer.excludeGitIgnore": true
+}

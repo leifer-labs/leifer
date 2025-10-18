@@ -1,0 +1,29 @@
+{
+	"folders": [
+    {
+      "name": "workspaces",
+      "path": "."
+    },
+    {
+      "name": "leifer-core",
+      "path": "../leifer-core"
+    },
+    {
+      "name": "leifer-models",
+      "path": "../leifer-models"
+    },
+    {
+      "name": "leifer-sampling",
+      "path": "../leifer-sampling"
+    },
+    {
+      "name": "leifer-ai",
+      "path": "../leifer-ai"
+    },
+    {
+      "name": "leifer-repl",
+      "path": "../leifer-repl"
+    }
+  ],
+  "settings": {}
+}
