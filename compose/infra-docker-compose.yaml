@@ -20,7 +20,7 @@ services:
 
   postgres:
     image: ankane/pgvector
-    container_name: datapilot-pgvector
+    container_name: postgres-pgvector
     environment:
       POSTGRES_USER: datapilot
       POSTGRES_PASSWORD: pilot123
@@ -54,7 +54,7 @@ services:
       CLUSTER_HOSTNAME: 'node1'
 
 volumes:
-  reds_date:
+  redis_data:
   mongodb_data_rs:
     driver: local
   pgdata:

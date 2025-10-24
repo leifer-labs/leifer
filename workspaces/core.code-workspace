@@ -5,6 +5,14 @@
       "path": "."
     },
     {
+      "name": "leifer-repl",
+      "path": "../leifer-repl"
+    },
+    {
+      "name": "leifer-ai",
+      "path": "../leifer-ai"
+    },
+    {
       "name": "leifer-core",
       "path": "../leifer-core"
     },
@@ -17,12 +25,8 @@
       "path": "../leifer-sampling"
     },
     {
-      "name": "leifer-ai",
-      "path": "../leifer-ai"
-    },
-    {
-      "name": "leifer-repl",
-      "path": "../leifer-repl"
+      "name": "NOTES",
+      "path": "../../../Library/Mobile Documents/com~apple~CloudDocs/Projects/NOTES"
     }
   ],
   "settings": {}
