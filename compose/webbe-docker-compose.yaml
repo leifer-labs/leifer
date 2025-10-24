@@ -1,0 +1,19 @@
+services:
+  leifer-webbe:
+    container_name: leifer-webbe
+    build:
+      context: ..
+      dockerfile: leifer-webbe/Dockerfile
+    ports:
+      - "5050:5000"              # host:container
+    # env_file:
+    #   - leifer-webbe/.env.docker
+    networks:
+      - compose_default          # attach to your existing infra network
+    
+    restart: unless-stopped
+
+# use the existing shared network created by your infra stack
+networks:
+  compose_default:
+    external: true
