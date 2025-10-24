@@ -5,5 +5,5 @@
   "search.exclude": {
     "**/leifer-*": true
   },
-  "explorer.excludeGitIgnore": true
+  "python.defaultInterpreterPath": ".venv/bin/python"
 }
