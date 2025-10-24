@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from collections import Counter
 import os
 from pathlib import Path
+import glob
 
 
 def parse_args():
@@ -60,15 +61,24 @@ def extract_git_dates(repo_path):
 
 
 def load_commit_dates_from_git(git_dir):
-  path = Path(git_dir)
   all_dates = []
 
-  if (path / ".git").exists():
-    return extract_git_dates(str(path))
+  paths = []
+  if "*" in git_dir or "?" in git_dir or "[" in git_dir:
+    # Glob pattern
+    paths = [Path(p) for p in glob.glob(git_dir) if Path(p).is_dir()]
   else:
-    for sub in path.iterdir():
-      if (sub / ".git").exists():
-        all_dates.extend(extract_git_dates(str(sub)))
+    paths = [Path(git_dir)]
+
+  for path in paths:
+    if (path / ".git").exists():
+      all_dates.extend(extract_git_dates(str(path)))
+    else:
+      # Look inside subdirectories (1 level deep)
+      for sub in path.iterdir():
+        if (sub / ".git").exists():
+          all_dates.extend(extract_git_dates(str(sub)))
+
   return all_dates
 
 
