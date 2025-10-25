@@ -13,3 +13,17 @@ rs.initiate({
 })
 # should see { "ok" : 1 }
 ```
+
+```sh
+#setup admin user
+docker exec -i mongodb mongosh -u leiferusr -p leiferpass --authenticationDatabase admin <<'EOF'
+use leifer
+const adminUser = {
+  username: "uberuser",
+  password: "$2b$12$n/JwZDsPwuDrO5cnXOr5/ubREo4KK/EQP1nnh0V6J/sOqBUzeqmIS",  // bcrypt-hashed password
+  tenant_id: new ObjectId(),  // Default tenant
+  role: "admin"
+};
+db.users.insertOne(adminUser);
+EOF
+```
