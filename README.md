@@ -91,7 +91,7 @@ For the other agents (e.g., analysis and concept extraction) we have tried a var
 
 For a quick tour of Leifer’s memory-driven AI agent system, check out the REPL runthrough video:
 
-▶️ [ReplRunthrough](docs/ReplRunthrough.mp4)
+▶️ [ReplRunthrough](https://leifer-labs.github.io/leifer)
 
 This demo shows how Leifer agents reason over datasets, and some of the tools for interacting with the environment. It’s the best starting point if you want to understand how the system actually thinks.
 
