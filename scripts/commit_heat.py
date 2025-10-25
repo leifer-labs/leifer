@@ -17,8 +17,7 @@ def parse_args():
   parser = argparse.ArgumentParser(description="Generate Git-style commit heatmap")
 
   source = parser.add_mutually_exclusive_group(required=True)
-  source.add_argument("--input",
-                      help="Path to file with commit dates (YYYY-MM-DD, one per line)")
+
   source.add_argument("--git-dir",
                       help="Path to a Git repo (or top-level dir with sub-repos)")
 
@@ -36,22 +35,21 @@ def parse_args():
   parser.add_argument("--transparent",
                       action="store_true",
                       help="Transparent background")
-  parser.add_argument("--title",
-                      default="Dev Activity (Last 12 Months)",
-                      help="Custom chart title")
+  parser.add_argument("--title", default="Dev Activity", help="Custom chart title")
+  parser.add_argument(
+    "--range",
+    default=9,
+    help="Range for the activity in months",
+    type=int,
+  )
 
   return parser.parse_args()
 
 
-def load_commit_dates_from_file(path):
-  with open(path) as f:
-    return [line.strip() for line in f if line.strip()]
-
-
-def extract_git_dates(repo_path):
+def extract_git_dates(repo_path, range_months):
   try:
     result = subprocess.run([
-      "git", "-C", repo_path, "log", "--since=1.year", "--date=short",
+      "git", "-C", repo_path, "log", f"--since={range_months}.months", "--date=short",
       "--pretty=format:%ad"
     ],
                             stdout=subprocess.PIPE,
@@ -63,7 +61,7 @@ def extract_git_dates(repo_path):
     return []
 
 
-def load_commit_dates_from_git(git_dir):
+def load_commit_dates_from_git(git_dir, range_months: int):
   all_dates = []
 
   paths = []
@@ -75,20 +73,20 @@ def load_commit_dates_from_git(git_dir):
 
   for path in paths:
     if (path / ".git").exists():
-      all_dates.extend(extract_git_dates(str(path)))
+      all_dates.extend(extract_git_dates(str(path), range_months))
     else:
       # Look inside subdirectories (1 level deep)
       for sub in path.iterdir():
         if (sub / ".git").exists():
-          all_dates.extend(extract_git_dates(str(sub)))
+          all_dates.extend(extract_git_dates(str(sub), range_months))
 
   return all_dates
 
 
-def build_heatmap_data(dates):
+def build_heatmap_data(dates, range_months):
   counts = Counter(dates)
   today = datetime.today().date()
-  start = today - timedelta(days=364)
+  start = today - timedelta(days=(range_months * 30))
 
   heatmap = np.zeros((7, 53))
 
@@ -120,18 +118,23 @@ def render_heatmap(heatmap,
                    theme="light",
                    style="gradient",
                    transparent=False,
-                   title=""):
+                   title="",
+                   range_months: int = None):
   fig, ax = plt.subplots(figsize=(14, 4))
+  #fig, ax = plt.subplots(figsize=(11, 7))
 
   cmap = get_colormap(theme, style)
-  im = ax.imshow(heatmap, cmap=cmap, aspect="auto", interpolation="nearest")
+  im = ax.imshow(heatmap, cmap=cmap, aspect="equal", interpolation="nearest")
+  #im = ax.imshow(heatmap, cmap=cmap, aspect="auto", interpolation="nearest")
 
   # Axis labels
+  #week_range = range_months * 4 + 1  #more or less
+  week_range = 53
   ax.set_yticks(range(7))
   ax.set_yticklabels(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
                      color="white" if theme == "dark" else "black")
 
-  weeks = [start_date + timedelta(days=7 * i) for i in range(53)]
+  weeks = [start_date + timedelta(days=7 * i) for i in range(week_range)]
   month_labels = []
   month_ticks = []
 
@@ -161,23 +164,21 @@ def render_heatmap(heatmap,
 
 def main():
   args = parse_args()
-  if args.input:
-    dates = load_commit_dates_from_file(args.input)
-  else:
-    dates = load_commit_dates_from_git(args.git_dir)
+  dates = load_commit_dates_from_git(args.git_dir, args.range)
 
   if not dates:
     print("[!] No commit dates found.")
     return
 
-  heatmap, start_date = build_heatmap_data(dates)
+  heatmap, start_date = build_heatmap_data(dates, args.range)
   render_heatmap(heatmap,
                  start_date,
                  args.output,
                  theme=args.theme,
                  style=args.style,
                  transparent=args.transparent,
-                 title=args.title)
+                 title=args.title,
+                 range_months=args.range)
 
 
 if __name__ == "__main__":

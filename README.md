@@ -85,8 +85,6 @@ The mainstream LLMs are used for the actual agents and LM Studio for embeddings.
 
 For the other agents (e.g., analysis and concept extraction) we have tried a variety of things...some LM Studio ones did ok but just in the interest of keeping things consistent during dev, we are currently using `gpt-4.1-mini` for those as well (`temperatures` on all of these are low).
 
----
-
 ## Demos
 
 ### REPL Walkthrough
@@ -97,8 +95,10 @@ For a quick tour of Leifer’s memory-driven AI agent system, check out the REPL
 
 This demo shows how Leifer agents reason over datasets, and some of the tools for interacting with the environment. It’s the best starting point if you want to understand how the system actually thinks.
 
----
-
 ### Web UI Snapshots
 
 Screenshots of the accompanying web interface can be found under [demos/web/](demos/web/). These illustrate some of the supporting tools (dashboard, dataset browser, etc.) used to interact with the system in a more visual way. 
+
+## Activity
+
+![Activity](docs/activity.svg)
