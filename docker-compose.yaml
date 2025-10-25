@@ -21,19 +21,6 @@ services:
     volumes:
       - mongodb_data:/data/db
     restart: unless-stopped
-    # networks:
-    #   - compose_default
-  # Replica set - outdated.  Need this to watch/stream collections
-  # mongodb_rs:
-  #   image: mongo:6.0
-  #   container_name: mongodb_rs
-  #   command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
-  #   ports:
-  #     - "27017:27017"
-  #   volumes:
-  #     - mongodb_data_rs:/data/db
-  #     #- ./compose/mongo-init.js:/docker-entrypoint-initdb.d/init.js:ro
-  #   restart: unless-stopped
   postgres:
     image: postgres:16
     container_name: postgres
@@ -46,21 +33,6 @@ services:
     restart: unless-stopped
     volumes:
       - pgdata:/var/lib/pgdata/data
-    # networks:
-    #   - compose_default
-  # Vector support...not using
-  # postgres:
-  #   image: ankane/pgvector
-  #   container_name: pgvector
-  #   environment:
-  #     POSTGRES_USER: samples_user
-  #     POSTGRES_PASSWORD: samplez
-  #     POSTGRES_DB: samples_db
-  #   ports:
-  #     - "5432:5432"
-  #   restart: unless-stopped
-  #   volumes:
-  #     - pgdata:/var/lib/postgresql/data
 
   weaviate:
     container_name: weaviate

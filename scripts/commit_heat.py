@@ -8,6 +8,9 @@ from collections import Counter
 import os
 from pathlib import Path
 import glob
+"""
+Useful to generate a github(ish) style activity heatmap
+"""
 
 
 def parse_args():

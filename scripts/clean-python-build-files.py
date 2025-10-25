@@ -3,6 +3,9 @@ import os
 import shutil
 import fnmatch
 import argparse
+"""
+Get that garbage outta here.
+"""
 
 
 def clean_python_build_files(directory: str, dry_run: bool = False):

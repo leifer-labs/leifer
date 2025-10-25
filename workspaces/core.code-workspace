@@ -1,10 +1,6 @@
 {
 	"folders": [
     {
-      "name": "workspaces",
-      "path": "."
-    },
-    {
       "name": "leifer-repl",
       "path": "../leifer-repl"
     },
