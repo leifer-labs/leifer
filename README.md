@@ -40,6 +40,8 @@ Screenshots of the accompanying web interface can be found under [demos/web/](de
 
 ## Activity
 
+Since all the source in this project is still private, we've generated our own activity log based on the commit logs of each of the `leifer` modules.
+
 ![Activity](docs/activity.svg)
 
 ## Usage
