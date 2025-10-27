@@ -98,6 +98,7 @@ Stores:
 - Embedding-based memory
 
 **AI**
+
 There are a couple of more parts of the stack: mainstream LLMs and LM Studio.
 
 The mainstream LLMs are used for the actual agents and LM Studio for embeddings. You can configure whatever models you want but, at least so far in the development effort, `gpt-4.1-mini` has been the goto for the planner (reasoning) agent AND for execution agent. We have tried a lot of different things for the embedder and will likely try a bunch more still.  Currently, we are using the (very high dimension) `text-embedding-jina-embeddings-v4-text-retrieval`.
